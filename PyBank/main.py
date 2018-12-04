@@ -34,26 +34,29 @@ with open(csvpath) as csvfile:
     # Look for each row of data. Do something if the desired call is found; do somethign else if not
     # Read each row of data , iteratate over something 
     
-     
-   # The total net amount of "Profit/Losses" over the entire period
 
+   # The total net amount of "Profit/Losses" over the entire period
+    MonthsList = []
     TotalPL = 0
-    # TotalDate = 0
+
     for row in csvreader:
       #This tells the computer to look at the first column for the variable I called "Date"
-      # Date = row[0]
-      # TotalMonths = TotalMonths + Date
+      #Trying to create a list with the months 
+      Date = str(row[0])
+      MonthsList.append(Date)
 
       #This tells the computer to look at the second column for the variable I called "Months_Profit_Losses" and casted as an integer 
       Months_Profit_Losses = int(row[1])
       # print(row[1])
 
       TotalPL = TotalPL + Months_Profit_Losses
-    # print(TotalMonths)
+
+    month_count = (len(MonthsList))
+    print(month_count)
     print(TotalPL)
 
 print("The End")
-# The total number of months included in the dataset
+# DONE. The total number of months included in the dataset
 # DONE.The total net amount of "Proft/Losses" over the entire period
 # The average change in "Profit/Losses" between months over the entire period
 # The greatest increase in profits (date and amount) over the entire period
