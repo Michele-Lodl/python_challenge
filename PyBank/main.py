@@ -19,10 +19,10 @@ csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 # ML FYI, this was what was in class. mine did not run when I had new line: with open(csvpath, newline='') as csvfile:
 with open(csvpath) as csvfile:
 
-    # CSV reader specifies module, method/fxn, file the variable is taking in, delimiter and variable that holds contents
+    # Split the data on commas
     csvreader = csv.reader(csvfile, delimiter=',')
 
-  #Best practice to check to see if reader worked by printing. Will know by seeing "cvs.reader object at...blah, blah, blah. Then # out. 
+    #Best practice to check to see if reader worked by printing. Will know by seeing "cvs.reader object at...blah, blah, blah. Then # out. 
     # print(csvreader)
 
     # Read the header row first (skip this step if there is no header. Print it the header after the hard coded text CSV header.)
@@ -35,9 +35,10 @@ with open(csvpath) as csvfile:
     # Read each row of data , iteratate over something 
     
 
-   # The total net amount of "Profit/Losses" over the entire period
+    # The total net amount of "Profit/Losses" over the entire period
     MonthsList = []
     TotalPL = 0
+    ProfitLossList = []
 
     for row in csvreader:
       #This tells the computer to look at the first column for the variable I called "Date"
@@ -48,18 +49,32 @@ with open(csvpath) as csvfile:
       #This tells the computer to look at the second column for the variable I called "Months_Profit_Losses" and casted as an integer 
       Months_Profit_Losses = int(row[1])
       # print(row[1])
-
+      ProfitLossList.append(Months_Profit_Losses)
       TotalPL = TotalPL + Months_Profit_Losses
+
+    #This is me attempting to find the changes MoM for profit/loss
+    #need to tell it to look at two variables from row 1 and 2 in the second column 
 
     month_count = (len(MonthsList))
     print(month_count)
     print(TotalPL)
 
-print("The End")
-# DONE. The total number of months included in the dataset
-# DONE.The total net amount of "Proft/Losses" over the entire period
-# The average change in "Profit/Losses" between months over the entire period
-# The greatest increase in profits (date and amount) over the entire period
-# The greatest decrease in losses (date and amount) over the entire period
-# In addition, your final script should both print the analysis to the terminal and export a text file with the results.
-# WIP - both analysis to terminal?
+
+    PL_Changes_List=[]
+    PL_Changes_Sum= 0
+    for i in range(1,len(ProfitLossList)):
+      change = int(ProfitLossList[i])-int(ProfitLossList[i-1])
+      PL_Changes_List.append(change)
+      PL_Changes_Sum = PL_Changes_Sum + change
+    #print(PL_Changes_Sum)
+    Average_Change = PL_Changes_Sum/len(PL_Changes_List)
+    print(Average_Change)
+
+    print("The End")
+    # DONE.The total number of months included in the dataset
+    # DONE.The total net amount of "Proft/Losses" over the entire period
+    # DONE. The average change in "Profit/Losses" between months over the entire period
+    # The greatest increase in profits (date and amount) over the entire period
+    # The greatest decrease in losses (date and amount) over the entire period
+    # In addition, your final script should both print the analysis to the terminal and export a text file with the results.
+    # WIP - both analysis to terminal? How do I know the book closed?
