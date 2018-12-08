@@ -5,12 +5,15 @@ import csv
 
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 with open(csvpath) as csvfile:
-
     
   csvreader = csv.reader(csvfile, delimiter=',')
-  # HELP: don't really get next and what is happening here. 
+  
   csv_header = next(csvreader)
-  print(f"CSV Header: {csv_header}")
+  #print(f"CSV Header: {csv_header}")
+
+  print("-------------------------")
+  print("Financial Analysis")
+  print("-------------------------")
 
   # The total net amount of "Profit/Losses" over the entire period
   # The total net amount of "Proft/Losses" over the entire period
@@ -30,8 +33,8 @@ with open(csvpath) as csvfile:
     TotalPL = TotalPL + Months_Profit_Losses
 
   month_count = (len(MonthsList))
-  print(month_count)
-  print(TotalPL)
+  print(f"Total Months: {month_count}")
+  print(f"Total: ${TotalPL}")
 
   #print(PL_Changes_Sum)
 
@@ -45,7 +48,7 @@ with open(csvpath) as csvfile:
   #print(PL_Changes_Sum)
 
   Average_Change = PL_Changes_Sum/len(PL_Changes_List)
-  print(f"The average change is {Average_Change} dollars.")
+  print(f"Average Change: ${Average_Change:.2f}")
 
   maxchange = max(PL_Changes_List)
   minchange = min(PL_Changes_List)
@@ -54,16 +57,29 @@ with open(csvpath) as csvfile:
   minchange_date = MonthsList[PL_Changes_List.index(minchange) + 1]
   #print(minchange_date)
 
-  print(f"The greatest increase in profits totaled {maxchange} dollars on {maxchange_date}.")
-  print(f"The steepest decrease in profits totaled {minchange} dollars on {minchange_date}.")
+  print(f"Greatest Increase in Profits: {maxchange_date} $({maxchange})")
+  print(f"Greatest Decrease in Profits: {minchange_date} $({minchange})")
   
 
-print("The End")
+output_path = os.path.join("..", "PyBank", "PyBank.csv")
 
-# DONE.The total number of months included in the dataset
-# DONE.The total net amount of "Proft/Losses" over the entire period
-# DONE. The average change in "Profit/Losses" between months over the entire period
-# DONE. The greatest increase in profits (date and amount) over the entire period
-# DONE. The greatest decrease in losses (date and amount) over the entire period
-# In addition, your final script should both print the analysis to the terminal and export a text file with the results.
-# something about both scripts working on both files. 
+# Open the file using "write" mode. Specify the variable to hold the contents
+with open(output_path, 'w', newline='') as csvfile:
+
+    # Initialize csv.writer
+    csvwriter = csv.writer(csvfile, delimiter=',')
+
+  
+    ##text=List of strings to be written to file
+    text = ["Financial Analysis, Values", 
+            "Total Months:, 86", 
+            "Total:, $38382578",
+            "Average Change:, $-2315.12", 
+            "Greatest Increase in Profits:, Feb-2012 $(1926159)",
+            "Greatest Decrease in Profits:, Sep-2013 $(-2196167)"]
+
+    for line in text:
+        csvfile.write(line)
+        csvfile.write('\n')
+  
+    

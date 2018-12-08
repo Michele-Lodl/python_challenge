@@ -78,7 +78,9 @@ votevcast = 0
 
 
   * The percentage of votes each candidate won
+    # get the name of the candidate 
     candidateList.index(candidate)
+        
         
 
   * The total number of votes each candidate won
